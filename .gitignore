@@ -2,3 +2,4 @@
 .vscode
 **/main.dSym
 **/.DS_Store
+Homeworks/**/*.pdf
