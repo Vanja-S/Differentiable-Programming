@@ -1,3 +1,6 @@
+// Author: Vanja Stojanović
+// Forward Direction AutoDiff (FMAD)
+
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>
