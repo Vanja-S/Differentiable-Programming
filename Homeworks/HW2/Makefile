@@ -1,6 +1,6 @@
-CC = clang # Use Clang instead of GCC
+CC = clang
 CFLAGS = -Wall -Wextra -O2 # Enable warnings and optimizations
-TARGET = bernoulli # Output executable name
+TARGET = bernoulli.out # Output executable name
 
 # Source files (main program + all .c files in the lib folder)
 SRCS = bernoulli.c $(wildcard lib/*.c) # Include all .c files in lib folder
