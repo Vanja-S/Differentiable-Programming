@@ -1,5 +1,7 @@
 #include "tests.h"
 
+#include "particles.h"
+
 // Example functions:
 // P(x) = 4/x
 // Q(x) = x^3
@@ -44,5 +46,73 @@ void testRK() {
     printf("| %-4zu | %-5.2f | %-8.5f |\n", i, results.x[i], results.y[i]);
     assert(approx_equal(expected.x[i], results.x[i], TOLERANCE));
     assert(approx_equal(expected.y[i], results.y[i], TOLERANCE));
+  }
+}
+
+// Example function:
+// u(x,y) = sin(π*x) * sinh(π*y)
+
+void testJacobi() {
+  const double TOLERANCE = 1e-5;
+
+  int nx = 10;
+  int ny = 10;
+
+  // double dx = (1.0 - 0.0) / (nx - 1);
+  // double dy = (1.0 - 0.0) / (ny - 1);
+
+  double u[nx][ny];
+  initialize_domain(nx, ny, u, 0.0, 0.0, 1.0, 1.0);
+  Jacobi_method(nx, ny, 10, TOLERANCE, u);
+
+  printf("Testing Jacobi function...");
+  printf("\tu(x,y) = sin(π*x) * sinh(π*y)\n\tx ∈ [0,1]\n\ty ∈ [0,1]\n\titerations = 10\n");
+
+  printf("Computed Solution:\n");
+  printf("    ");
+  for(size_t j = 0; j < 10; j++) {
+    printf("  j=%-4zu ", j);
+  }
+  printf("\n");
+
+  for(size_t i = 0; i < 10; i++) {
+    printf("i=%-2zu ", i);
+    for(size_t j = 0; j < 10; j++) {
+      printf("%8.4f ", u[i][j]);
+    }
+    printf("\n");
+  }
+}
+
+void testJacobiSimulation() {
+  const double TOLERANCE = 1e-5;
+
+  int nx = 10;
+  int ny = 10;
+
+  double u[nx][ny];
+  double u_velocity[nx][ny], v_velocity[nx][ny];
+  printf("Initializing domain...\n");
+  initialize_domain(nx, ny, u, 0.0, 0.0, 1.0, 1.0);
+  printf("Solving Laplace's equation by the Jacobi method...\n");
+  Jacobi_method(nx, ny, 100, TOLERANCE, u);
+  printf("Calculating velocity field...\n");
+  calculate_velocity_field(nx, ny, u, u_velocity, v_velocity, 0.0, 0.0, 1.0, 1.0);
+
+  printf("Initializing particles...\n");
+  int num_particles = 90;
+  Particle particles[num_particles];
+
+  printf("Starting flow simulation...\n");
+  initialize_particles(particles, num_particles, 0.0, 0.0);
+
+  printf("Starting flow simulation...\n");
+
+  size_t simulation_steps = 150;
+  double time_step = 0.01;
+  for(size_t step = 0; step < simulation_steps; step++) {
+    update_particles(nx, ny, particles, num_particles, u_velocity, v_velocity, time_step, 0.0, 0.0,
+                     1.0, 1.0);
+    draw_particles(nx, ny, particles, num_particles, 0.0, 0.0, 1.0, 1.0);
   }
 }

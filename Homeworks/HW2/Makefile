@@ -1,9 +1,9 @@
 CC = clang
 CFLAGS = -Wall -Wextra -O2 # Enable warnings and optimizations
-TARGET = bernoulli.out # Output executable name
+TARGET = main.out # Output executable name
 
 # Source files (main program + all .c files in the lib folder)
-SRCS = bernoulli.c $(wildcard lib/*.c) # Include all .c files in lib folder
+SRCS = main.c bernoulli.c laplace.c $(wildcard lib/*.c) # Include all .c files including submodules
 OBJS = $(SRCS:.c=.o) # Object files
 
 # FANN library paths and linking
@@ -16,8 +16,9 @@ CFLAGS += -Ilib $(FANN_INCLUDE)
 # Default rule to build the executable
 all: $(TARGET)
 
+# Rule to build the target executable
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) $(FANN_LIB)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(FANN_LIB)
 
 # Rule to compile .c files into .o files
 %.o: %.c
@@ -27,6 +28,16 @@ $(TARGET): $(OBJS)
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-# Run the program
+# Run the program with a specific submodule
 run: $(TARGET)
-	./$(TARGET)
+	@if [ -z "$(filter-out run,$(MAKECMDGOALS))" ]; then \
+		echo "Usage: make run <submodule>"; \
+		echo "Available submodules: bernoulli, laplace"; \
+	else \
+		./$(TARGET) $(filter-out $@,$(MAKECMDGOALS)); \
+	fi
+
+# Phony targets for the submodules to avoid conflicts with files of the same name
+.PHONY: all clean run bernoulli laplace
+bernoulli laplace:
+	@: # Do nothing, just define the targets so make doesn't look for files with these names
