@@ -1,0 +1,82 @@
+<scene version="2.1.0">
+
+<!-- Defaults, these can be set via the command line: -Darg=value -->
+
+	<default name="spp" value="4096"/>
+	<default name="resx" value="900"/>
+	<default name="resy" value="800"/>
+
+<!-- Camera and Rendering Parameters -->
+
+	<integrator type="path" id="elm__0" name="elm__0">
+    	<integer name="max_depth" value="2"/>
+	</integrator>
+	<sensor type="perspective" id="sensor" name="sensor">
+		<string name="fov_axis" value="x"/>
+		<float name="fov" value="51.134249"/>
+		<float name="principal_point_offset_x" value="0.000000"/>
+		<float name="principal_point_offset_y" value="-0.000000"/>
+		<float name="near_clip" value="0.100000"/>
+		<float name="far_clip" value="100.000000"/>
+		<transform name="to_world">
+			<rotate x="1" angle="-162.35034540115817"/>
+			<rotate y="1" angle="-53.271876016406864"/>
+			<rotate z="1" angle="-179.99995036744298"/>
+			<translate value="2.363603 2.848008 1.771361"/>
+		</transform>
+		<sampler type="independent" name="sampler">
+			<integer name="sample_count" value="$spp"/>
+		</sampler>
+		<film type="hdrfilm" name="film">
+			<integer name="width" value="$resx"/>
+			<integer name="height" value="$resy"/>
+		</film>
+	</sensor>
+
+<!-- Materials -->
+
+	<bsdf type="twosided" id="default-bsdf" name="default-bsdf">
+		<bsdf type="diffuse" name="bsdf"/>
+	</bsdf>
+
+	<bsdf type="diffuse" id="white_surface" name="white_surface">
+    	<rgb name="reflectance" value="1.0 1.0 1.0"/>
+	</bsdf>
+
+<!-- Emitters -->
+
+	<emitter type="spot" id="elm__6" name="elm__6">
+		<rgb value="115.546486 115.546486 115.546486" name="intensity"/>
+		<float name="cutoff_angle" value="11.676128"/>
+		<float name="beam_width" value="2.708267"/>
+		<transform name="to_world">
+			<matrix value="0.538129 0.842620 -0.020195 0.167229 0.828436 -0.533181 -0.171498 3.152709 -0.155276 0.075557 -0.984977 7.659154 0.000000 0.000000 0.000000 1.000000"/>
+		</transform>
+	</emitter>
+
+<!-- Shapes -->
+
+	<shape type="ply" id="elm__3" name="elm__3">
+		<string name="filename" value="meshes/Plane.ply"/>
+		<boolean name="face_normals" value="true"/>
+		<ref id="white_surface" name="bsdf"/>
+	</shape>
+	<shape type="ply" id="elm__4" name="elm__4">
+		<string name="filename" value="meshes/Plane_001.ply"/>
+		<boolean name="face_normals" value="true"/>
+		<ref id="default-bsdf" name="bsdf"/>
+	</shape>
+	<shape type="ply" id="elm__5" name="elm__5">
+		<string name="filename" value="meshes/Plane_002.ply"/>
+		<boolean name="face_normals" value="true"/>
+		<ref id="default-bsdf" name="bsdf"/>
+	</shape>
+	<shape type="ply" id="cube" name="cube">
+		<string name="filename" value="meshes/Cube.ply"/>
+		<boolean name="face_normals" value="true"/>
+		<ref id="default-bsdf" name="bsdf"/>
+	</shape>
+
+<!-- Volumes -->
+
+</scene>
