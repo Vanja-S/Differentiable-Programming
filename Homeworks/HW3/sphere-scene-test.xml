@@ -32,6 +32,27 @@
 			<integer name="height" value="$resy"/>
 		</film>
 	</sensor>
+	<sensor type="perspective" id="elm__8" name="elm__8">
+		<string name="fov_axis" value="x"/>
+		<float name="fov" value="126.741755"/>
+		<float name="principal_point_offset_x" value="0.000000"/>
+		<float name="principal_point_offset_y" value="-0.000000"/>
+		<float name="near_clip" value="0.100000"/>
+		<float name="far_clip" value="1000.000000"/>
+		<transform name="to_world">
+			<rotate x="1" angle="179.8126665804012"/>
+			<rotate y="1" angle="0.046827066583253314"/>
+			<rotate z="1" angle="179.94649730699845"/>
+			<translate value="0.000000 1.833394 -0.182561"/>
+		</transform>
+		<sampler type="independent" name="sampler">
+			<integer name="sample_count" value="$spp"/>
+		</sampler>
+		<film type="hdrfilm" name="film">
+			<integer name="width" value="$resx"/>
+			<integer name="height" value="$resy"/>
+		</film>
+	</sensor>
 
 <!-- Materials -->
 
@@ -41,17 +62,14 @@
 
 <!-- Emitters -->
 
-	<shape type="rectangle" id="light2" name="light2">
+	<emitter type="spot" id="elm__6" name="elm__6">
+		<rgb value="115.546486 115.546486 115.546486" name="intensity"/>
+		<float name="cutoff_angle" value="11.676128"/>
+		<float name="beam_width" value="2.708267"/>
 		<transform name="to_world">
-			<matrix value="-0.025000 0.000000 0.000000 0.000000 
-							0.000000 0.025000 0.000000 2.000000 
-							0.000000 0.000000 -0.025000 5.000000 
-							0.000000 0.000000 0.000000 1.000000"/>
+			<matrix value="0.538129 0.842620 -0.020195 0.167229 0.828436 -0.533181 -0.171498 3.152709 -0.155276 0.075557 -0.984977 7.659154 0.000000 0.000000 0.000000 1.000000"/>
 		</transform>
-		<emitter type="area" name="emitter">
-			<rgb value="40000.0" name="radiance"/>
-		</emitter>
-	</shape>
+	</emitter>
 
 <!-- Shapes -->
 
@@ -70,8 +88,8 @@
 		<boolean name="face_normals" value="true"/>
 		<ref id="default-bsdf" name="bsdf"/>
 	</shape>
-	<shape type="ply" id="sphere" name="sphere">
-		<string name="filename" value="meshes/Sphere.ply"/>
+	<shape type="ply" id="elm__7" name="elm__7">
+		<string name="filename" value="meshes/Cube.ply"/>
 		<boolean name="face_normals" value="true"/>
 		<ref id="default-bsdf" name="bsdf"/>
 	</shape>
