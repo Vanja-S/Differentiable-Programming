@@ -1,5 +1,6 @@
 \documentclass[manuscript,screen,acmtog,natbib=false]{acmart}
 \usepackage{adjustbox}
+\usepackage{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{positioning, arrows.meta, shapes, backgrounds}
 
@@ -29,13 +30,16 @@ Crack Affine Cryptographic Schemes Efficiently}
 University of Ljubljana, Faculty of Mathematics and Physics}
 
 \begin{abstract}
-    Abstract
+We investigate the cryptanalysis of affine ciphers using a hybrid neural network architecture that combines modular arithmetic-aware and statistical feature-based learning. Inspired by recent advances in interpretable neural networks for modular arithmetic \cite{gromov2023} and neural cryptanalysis of classical ciphers~\cite{Focardi2018NeuralCO}, our approach integrates a modular branch that processes raw ciphertext sequences and a statistical branch that leverages letter frequency features. Experiments on datasets derived from natural English text demonstrate that the hybrid model achieves high key recovery accuracy for short and moderate ciphertexts, outperforming purely statistical approaches for the affine cipher. However, performance degrades for very long ciphertexts, highlighting challenges in model generalization. 
 \end{abstract}
 
 \begin{document}
   \maketitle
 
   \section{Introduction}
+
+  All code and datasets for this work are available online \href{https://github.com/Vanja-S/Differentiable-Programming/tree/main/Research%20Project/Project/python}{here}.
+
   The cryptanalysis of classical ciphers has long served as a proving ground for both cryptographic
   and machine learning techniques. Advances in the field have demonstrated that artificial neural networks
   (ANNs) can be trained to automate attacks on classical ciphers by exploiting statistical features of
